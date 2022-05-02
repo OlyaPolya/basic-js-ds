@@ -49,7 +49,11 @@ class BinarySearchTree {
         return true;
       }
 
-      return data < node.data ? hasTree(node.left, data) : hasTree(node.right, data);
+      if (data < node.data) {
+      return hasTree(node.left, data)
+    } else {
+      return hasTree(node.right, data);
+    }
     }
   }
 
@@ -65,7 +69,11 @@ class BinarySearchTree {
         return node;
       }
 
-      return data < node.data ? searchInTree(node.left, data) : searchInTree(node.right, data);
+      if (data < node.data) {
+        return  searchInTree(node.left, data)
+      } else {
+        return searchInTree(node.right, data);
+      }
     }
   }
 
