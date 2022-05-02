@@ -23,11 +23,11 @@ class BinarySearchTree {
         return new Node(data);
       }
 
-      if (data === node.data) {
+      if (node.data === data) {
         return node;
       }
 
-      if (data > node.data) {
+      if (data < node.data) {
         node.left = addInsideTree(node.left, data);
       } else {
         node.right = addInsideTree(node.right, data);
@@ -45,7 +45,7 @@ class BinarySearchTree {
         return false;
       }
 
-      if (data === node.data) {
+      if (node.data === data) {
         return true;
       }
 
@@ -61,7 +61,7 @@ class BinarySearchTree {
         return null;
       }
 
-      if (data === node.data) {
+      if (node.data === data) {
         return node;
       }
 
@@ -80,7 +80,7 @@ class BinarySearchTree {
       if (data < node.data) {
         node.left = removeFromTree(node.left, data);
         return node;
-      } else if (data > node.data) {
+      } else if (node.data < data) {
         node.right = removeFromTree(node.right, data);
         return node;
       } else {
@@ -98,14 +98,13 @@ class BinarySearchTree {
           return node;
         }
 
-        let maxValueLeftPartTree = node.left;
-
-        while (maxValueLeftPartTree.right) {
-          maxValueLeftPartTree = maxValueLeftPartTree.right;
+        let minFromRight = node.right;
+        while (minFromRight.left) {
+          minFromRight = minFromRight.left;
         }
+        node.data = minFromRight.data;
 
-        node.data = maxValueLeftPartTree.data;
-        node.left = removeFromTree(node.left, maxValueLeftPartTree.data);
+        node.right = removeFromTree(node.right, minFromRight.data);
 
         return node;
       }
@@ -113,10 +112,6 @@ class BinarySearchTree {
   }
 
   min() {
-    if (!this.treeRoot) {
-      return null;
-    }
-
     let minValue = this.treeRoot;
 
     while (minValue.left) {
@@ -126,10 +121,6 @@ class BinarySearchTree {
   }
 
   max() {
-    if (!this.treeRoot) {
-      return null;
-    }
-
     let maxValue = this.treeRoot;
 
     while (maxValue.right) {
